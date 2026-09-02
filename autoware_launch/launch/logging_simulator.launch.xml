@@ -4,7 +4,6 @@
   <arg name="map_path" description="point cloud and lanelet2 map directory path"/>
   <arg name="vehicle_model" default="sample_vehicle" description="vehicle model name"/>
   <arg name="sensor_model" default="sample_sensor_kit" description="sensor model name"/>
-  <arg name="vehicle_id" default="$(env VEHICLE_ID default)" description="vehicle specific ID"/>
   <arg name="data_path" default="$(env HOME)/autoware_data/ml_models" description="packages data and artifacts directory path"/>
 
   <!-- launch module preset -->
@@ -58,7 +57,6 @@
       <!-- Pointcloud container -->
       <arg name="pointcloud_container_name" value="$(var pointcloud_container_name)"/>
       <!-- Vehicle -->
-      <arg name="vehicle_id" value="$(var vehicle_id)"/>
       <arg name="launch_vehicle_interface" value="$(var launch_vehicle_interface)"/>
       <!-- System -->
       <arg name="launch_system" value="$(var system)"/>

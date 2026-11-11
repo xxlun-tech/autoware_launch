@@ -2,10 +2,10 @@
 <launch>
   <!-- Localization composition root: the product selects the pose/twist sources, flattens them into per-estimator junctions, and includes only the required unit launchers -->
   <arg name="localization_config_pkg" default="autoware_localization_config" description="package that ships the localization config/ tree; overriding it relocates every parameter file"/>
-  <arg name="pose_source" default="ndt" description="A string consisting of ndt, yabloc, eagleye, artag and lidar-marker joined by underscores no matter the order. e.g. ndt_yabloc"/>
-  <arg name="twist_source" default="gyro_odom" description="select twist_estimator. gyro_odom, eagleye"/>
+  <arg name="pose_source" default="ndt_eagleye" description="A string consisting of ndt, yabloc, eagleye, artag and lidar-marker joined by underscores no matter the order. e.g. ndt_yabloc"/>
+  <arg name="twist_source" default="eagleye" description="select twist_estimator. gyro_odom, eagleye"/>
   <arg name="system_run_mode" default="online" description="run mode in system"/>
-  <arg name="gnss_enabled" default="true" description="gnss availability for initial position estimation"/>
+  <arg name="gnss_enabled" default="false" description="gnss availability for initial position estimation"/>
   <arg name="use_autoware_pose_covariance_modifier" default="false"/>
   <arg name="input_pointcloud" default="/sensing/lidar/concatenated/pointcloud" description="The topic will be used in the localization util module"/>
   <arg name="localization_pointcloud_container_name" default="/pointcloud_container" description="The target container to which pointcloud preprocessing nodes in localization be attached"/>
@@ -44,6 +44,7 @@
   <let name="sub_gnss_pose_cov" value="/sensing/gnss/pose_with_covariance"/>
   <group if="$(var use_eagleye_pose)" scoped="false">
     <let name="sub_gnss_pose_cov" value="/localization/pose_estimator/pose_with_covariance" unless="$(var multi_localizer_mode)"/>
+    <let name="sub_gnss_pose_cov" value="/localization/pose_estimator/eagleye/pose_with_covariance/to_relay" if="$(eval &quot;$(var multi_localizer_mode) and '$(var gnss_enabled)' == 'false'&quot;)"/>
   </group>
 
   <!-- Pointcloud container -->
@@ -150,6 +151,8 @@
       <include file="$(find-pkg-share autoware_pose_estimator_arbiter)/launch/pose_estimator_arbiter.launch.xml">
         <arg name="pose_sources" value="$(var pose_sources)"/>
         <arg name="input_pointcloud" value="$(var input_pointcloud)"/>
+        <arg name="pcd_density_lower_threshold" value="3"/>
+        <arg name="pcd_density_upper_threshold" value="10"/>
       </include>
     </group>
 
@@ -159,7 +162,7 @@
       <include file="$(find-pkg-share autoware_localization_launch)/launch/util/util.launch.xml">
         <arg name="use_ndt_pose" value="$(var use_ndt_pose)"/>
         <arg name="use_yabloc_pose" value="$(var use_yabloc_pose)"/>
-        <arg name="gnss_enabled" value="$(var gnss_enabled)"/>
+        <arg name="gnss_enabled" value="true"/>
         <arg name="stop_check_enabled" value="$(var stop_check_enabled)"/>
         <arg name="user_defined_initial_pose/enable" value="$(var user_defined_initial_pose/enable)"/>
         <arg name="user_defined_initial_pose/pose" value="$(var user_defined_initial_pose/pose)"/>

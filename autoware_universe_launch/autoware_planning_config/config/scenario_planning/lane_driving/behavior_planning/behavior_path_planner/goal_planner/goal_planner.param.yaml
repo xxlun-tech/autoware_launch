@@ -2,27 +2,27 @@
   ros__parameters:
     goal_planner:
       # general params
-      th_arrived_distance: 1.0
-      th_stopped_velocity: 0.01
-      th_stopped_time: 2.0  # It must be greater than the state_machine's.
+      th_arrived_distance: 2.5
+      th_stopped_velocity: 0.3
+      th_stopped_time: 4.0  # It must be greater than the state_machine's.
       center_line_path_interval: 1.0
 
       # goal search
       goal_search:
         goal_priority: "minimum_weighted_distance" # "minimum_weighted_distance" or "minimum_longitudinal_distance"
         minimum_weighted_distance:
-          lateral_weight: 40.0
+          lateral_weight: 60.0
         prioritize_goals_before_objects: true
-        parking_policy: "left_side" # "left_side" or "right_side"
-        forward_goal_search_length: 40.0
-        backward_goal_search_length: 20.0
+        parking_policy: "right_side" # "left_side" or "right_side"
+        forward_goal_search_length: 15.0
+        backward_goal_search_length: 10.0
         goal_search_interval: 2.0
-        longitudinal_margin: 3.0
-        max_lateral_offset: 1.0
+        longitudinal_margin: 8.0
+        max_lateral_offset: 2.0
         lateral_offset_interval: 0.5
         ignore_distance_from_lane_start: 0.0
-        margin_from_boundary: 0.75
-        high_curvature_threshold: 0.1
+        margin_from_boundary: 1.5
+        high_curvature_threshold: 0.06
         bus_stop_area:
           use_bus_stop_area: false
           goal_search_interval: 0.75
@@ -30,51 +30,51 @@
 
       # occupancy grid map
       occupancy_grid:
-        use_occupancy_grid_for_goal_search: false
+        use_occupancy_grid_for_goal_search: true
         use_occupancy_grid_for_goal_longitudinal_margin: false
-        use_occupancy_grid_for_path_collision_check: false
-        occupancy_grid_collision_check_margin: 0.0
+        use_occupancy_grid_for_path_collision_check: true
+        occupancy_grid_collision_check_margin: 1.0
         theta_size: 360
-        obstacle_threshold: 60
+        obstacle_threshold: 80
 
       # object recognition
       object_recognition:
-        collision_check_soft_margins: [5.0, 4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0]  # the maximum margin when ego and objects are oriented.
-        collision_check_hard_margins: [0.6]  # this should be larger than `surround_check_distance` of surround_obstacle_checker
-        object_recognition_collision_check_max_extra_stopping_margin: 1.0
+        collision_check_soft_margins: [8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0]  # the maximum margin when ego and objects are oriented.
+        collision_check_hard_margins: [1.5]  # this should be larger than `surround_check_distance` of surround_obstacle_checker
+        object_recognition_collision_check_max_extra_stopping_margin: 3.0
         collision_check_outer_margin_factor: 2.0
-        th_moving_object_velocity: 1.0
+        th_moving_object_velocity: 0.5
         detection_bound_offset: 15.0
         outer_road_detection_offset: 1.0
         inner_road_detection_offset: 0.0
 
       # path decision state controller
       path_decision_state_controller:
-        check_collision_duration: 1.0  # Duration to check collision before transition from DECIDING to DECIDED
+        check_collision_duration: 3.0  # Duration to check collision before transition from DECIDING to DECIDED
 
       # pull over
       pull_over:
         minimum_request_length: 0.0
-        approximate_pull_over_distance: 20.0
-        pull_over_prepare_length: 100.0
-        pull_over_velocity: 3.0
-        pull_over_minimum_velocity: 1.38
-        decide_path_distance: 10.0
-        maximum_deceleration: 1.0
-        maximum_jerk: 1.0
-        low_velocity_threshold: 1.38
-        stopping_distance_buffer: 2.0
+        approximate_pull_over_distance: 10.0
+        pull_over_prepare_length: 30.0
+        pull_over_velocity: 0.8
+        pull_over_minimum_velocity: 0.3
+        decide_path_distance: 5.0
+        maximum_deceleration: 0.15
+        maximum_jerk: 0.15
+        low_velocity_threshold: 0.3
+        stopping_distance_buffer: 5.0
         path_priority: "efficient_path" # "efficient_path" or "close_goal"
         efficient_path_order: ["SHIFT", "ARC_FORWARD", "ARC_BACKWARD"] # only lane based pull over(exclude freespace parking)
-        lane_departure_check_expansion_margin: 0.2
+        lane_departure_check_expansion_margin: 1.0
 
         # shift parking
         shift_parking:
           enable_shift_parking: true
           shift_sampling_num: 4
-          maximum_lateral_jerk: 2.0
-          minimum_lateral_jerk: 0.5
-          deceleration_interval: 15.0
+          maximum_lateral_jerk: 0.3
+          minimum_lateral_jerk: 0.075
+          deceleration_interval: 8.0
           after_shift_straight_distance: 1.5
 
         # parallel parking path
@@ -83,11 +83,11 @@
           forward:
             enable_arc_forward_parking: true
             after_forward_parking_straight_distance: 2.0
-            forward_parking_velocity: 1.38
-            forward_parking_lane_departure_margin: 0.0
+            forward_parking_velocity: 0.5
+            forward_parking_lane_departure_margin: 1.0
             forward_parking_path_interval: 1.0
           backward:
-            enable_arc_backward_parking: true
+            enable_arc_backward_parking: false
             after_backward_parking_straight_distance: 2.0
             backward_parking_velocity: -1.38
             backward_parking_lane_departure_margin: 0.0
@@ -95,8 +95,8 @@
 
         # freespace parking
         freespace_parking:
-          enable_freespace_parking: true
-          freespace_parking_algorithm: "astar"  # options: astar, rrtstar
+          enable_freespace_parking: true 
+          freespace_parking_algorithm: "rrtstar"  # options: astar, rrtstar
           velocity: 1.0
           vehicle_shape_margin: 1.0
           time_limit: 3000.0
@@ -113,7 +113,7 @@
             direction_change_weight: 1.5
           # costmap configs
           costmap_configs:
-            obstacle_threshold: 30
+            obstacle_threshold: 80
           # -- A* search Configurations --
           astar:
             search_method: "forward"  # options: forward, backward
@@ -135,42 +135,42 @@
             margin: 1.0
 
         bezier_parking:
-          pull_over_angle_threshold: 0.5
+          pull_over_angle_threshold: 0.3
           after_shift_straight_distance: 1.5
-          lateral_acceleration_threshold: 1.0
+          lateral_acceleration_threshold: 0.2
           lateral_acceleration_filtering_duration: 0.5
 
       stop_condition:
-        maximum_deceleration_for_stop: 1.0
-        maximum_jerk_for_stop: 1.0
+        maximum_deceleration_for_stop: 0.3
+        maximum_jerk_for_stop: 0.3
       path_safety_check:
         # EgoPredictedPath
         ego_predicted_path:
-          min_velocity: 1.0
-          min_acceleration: 1.0
+          min_velocity: 0.0
+          min_acceleration: 0.2
           max_velocity: 1.0
-          time_horizon_for_front_object: 5.0
-          time_horizon_for_rear_object: 5.0
+          time_horizon_for_front_object: 15.0
+          time_horizon_for_rear_object: 15.0
           time_resolution: 0.5
-          delay_until_departure: 1.0
+          delay_until_departure: 2.0
         # For target object filtering
         target_filtering:
-          safety_check_time_horizon: 5.0
+          safety_check_time_horizon: 15.0
           safety_check_time_resolution: 1.0
           # detection range
-          object_check_forward_distance: 100.0
-          object_check_backward_distance: 100.0
-          ignore_object_velocity_threshold: 0.25
+          object_check_forward_distance: 30.0
+          object_check_backward_distance: 30.0
+          ignore_object_velocity_threshold: 0.10
           # ObjectTypesToCheck
           object_types_to_check:
-            check_car: true
-            check_truck: true
-            check_bus: true
-            check_trailer: true
-            check_bicycle: true
-            check_motorcycle: true
-            check_pedestrian: true
-            check_unknown: false
+            check_car: false
+            check_truck: false
+            check_bus: false
+            check_trailer: false
+            check_bicycle: false
+            check_motorcycle: false
+            check_pedestrian: false
+            check_unknown: true
           # ObjectLaneConfiguration
           object_lane_configuration:
             check_current_lane: true
@@ -182,33 +182,33 @@
           invert_opposite_lane: false
           check_all_predicted_path: true
           use_all_predicted_path: true
-          use_predicted_path_outside_lanelet: false
+          use_predicted_path_outside_lanelet: true
 
         # For safety check
         safety_check_params:
           # safety check configuration
           enable_safety_check: true
           method: "integral_predicted_polygon"
-          keep_unsafe_time: 0.5
+          keep_unsafe_time: 1.5
           # collision check parameters
           publish_debug_marker: false
           rss_params:
-            rear_vehicle_reaction_time: 2.0
-            rear_vehicle_safety_time_margin: 1.0
-            lateral_distance_max_threshold: 2.0
-            longitudinal_distance_min_threshold: 3.0
+            rear_vehicle_reaction_time: 5.0
+            rear_vehicle_safety_time_margin: 3.0
+            lateral_distance_max_threshold: 5.0
+            longitudinal_distance_min_threshold: 10.0
             longitudinal_velocity_delta_time: 0.8
           integral_predicted_polygon_params:
-            forward_margin: 1.0
-            backward_margin: 1.0
-            lat_margin: 1.0
-            time_horizon: 5.0
+            forward_margin: 3.0
+            backward_margin: 3.0
+            lat_margin: 3.0
+            time_horizon: 15.0
           # hysteresis factor to expand/shrink polygon with the value
           hysteresis_factor_expand_rate: 1.0
           collision_check_yaw_diff_threshold: 3.1416
           # temporary
-          backward_path_length: 30.0
-          forward_path_length: 100.0
+          backward_path_length: 10.0
+          forward_path_length: 30.0
 
       # debug
       debug:

@@ -5,17 +5,13 @@
   <arg name="module_preset" default="default"/>
   <arg name="lateral_controller_mode" default="mpc"/>
   <arg name="longitudinal_controller_mode" default="pid"/>
-  <arg name="use_individual_control_param" default="false" description="read the lateral/longitudinal controller params from the trajectory_follower/VEHICLE_ID subtree"/>
-  <arg name="use_aeb_autoware_state_check" default="true"/>
+  <arg name="use_aeb_autoware_state_check" default="false"/>
   <arg name="check_external_emergency_heartbeat" default="false"/>
   <arg name="use_sim_time" default="false"/>
   <arg name="vehicle_model" default="sample_vehicle"/>
-  <arg name="vehicle_id" default="$(env VEHICLE_ID default)"/>
 
-  <!-- Controller parameter files; per-vehicle tuning lives under trajectory_follower/VEHICLE_ID -->
   <let name="trajectory_follower_config_dir" value="$(find-pkg-share $(var control_config_pkg))/config/trajectory_follower"/>
-  <let name="latlon_controller_config_dir" value="$(var trajectory_follower_config_dir)/$(var vehicle_id)" if="$(var use_individual_control_param)"/>
-  <let name="latlon_controller_config_dir" value="$(var trajectory_follower_config_dir)" unless="$(var use_individual_control_param)"/>
+  <let name="latlon_controller_config_dir" value="$(var trajectory_follower_config_dir)"/>
   <let name="lat_controller_param_path" value="$(var latlon_controller_config_dir)/lateral/$(var lateral_controller_mode).param.yaml"/>
   <let name="lon_controller_param_path" value="$(var latlon_controller_config_dir)/longitudinal/$(var longitudinal_controller_mode).param.yaml"/>
 

@@ -27,13 +27,13 @@
     include_conflicting_lanes: false
     # Must match mission_planner allow_area when using lanelet-area-lanelet routes
     allow_area: false
-    boundary_types_to_detect: [curbstone]
+    boundary_types_to_detect: [road_border]
 
 
     # Core
-    footprint_margin_scale: 1.0
-    footprint_extra_margin: 0.0
-    resample_interval: 0.3
-    max_deceleration: 2.8
-    delay_time: 1.3
-    min_braking_distance: 0.0
+    footprint_margin_scale: 1.5
+    footprint_extra_margin: 0.3
+    resample_interval: 0.5
+    max_deceleration: 0.8
+    delay_time: 2.5
+    min_braking_distance: 0.5

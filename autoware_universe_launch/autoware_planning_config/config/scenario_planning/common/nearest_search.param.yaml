@@ -14,5 +14,5 @@
 /**:
   ros__parameters:
     # ego
-    ego_nearest_dist_threshold: 3.0 # [m]
-    ego_nearest_yaw_threshold: 1.046 # [rad] = 60 [deg]
+    ego_nearest_dist_threshold: 5.0 # [m]
+    ego_nearest_yaw_threshold: 1.309 # [rad] = 60 [deg]

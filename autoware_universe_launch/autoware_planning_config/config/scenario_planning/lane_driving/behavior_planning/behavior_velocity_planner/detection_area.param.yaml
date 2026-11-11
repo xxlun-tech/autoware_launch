@@ -1,10 +1,10 @@
 /**:
   ros__parameters:
     detection_area:
-      stop_margin: 0.0
+      stop_margin: 2.0
       target_filtering:
         pointcloud: true
-        unknown: false
+        unknown: true
         car: false
         truck: false
         bus: false
@@ -16,14 +16,14 @@
         hazard: false
         over_drivable: false
         under_drivable: false
-      use_dead_line: false
-      dead_line_margin: 5.0
+      use_dead_line: true
+      dead_line_margin: 10.0
       unstoppable_policy: "stop_after_stopline" # "go" or "force_stop" or "stop_after_stopline"
-      max_deceleration: 2.5
-      delay_response_time: 0.5
-      state_clear_time: 2.0
-      hold_stop_margin_distance: 0.0
-      distance_to_judge_over_stop_line: 0.5
+      max_deceleration: 0.30
+      delay_response_time: 2.0
+      state_clear_time: 5.0
+      hold_stop_margin_distance: 1.0
+      distance_to_judge_over_stop_line: 1.0
       enable_rtc: false # if true, the scene modules should be approved by (request to cooperate)rtc function. if false, the module can be run without approval from rtc.
       suppress_pass_judge_when_stopping: false
       enable_detected_obstacle_logging: false # Enable/disable detected obstacle logging

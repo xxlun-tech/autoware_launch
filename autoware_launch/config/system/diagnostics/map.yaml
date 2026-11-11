@@ -3,7 +3,7 @@ units:
     type: and
     list:
       - { type: link, link: /autoware/map/topic_rate_check/vector_map }
-      - { type: link, link: /autoware/map/topic_rate_check/pointcloud_map }
+      #- { type: link, link: /autoware/map/topic_rate_check/pointcloud_map } TODO
 
   - path: /autoware/map/topic_rate_check/vector_map
     type: diag

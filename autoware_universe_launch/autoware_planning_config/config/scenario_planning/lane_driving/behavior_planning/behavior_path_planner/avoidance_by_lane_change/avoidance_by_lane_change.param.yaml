@@ -43,14 +43,14 @@
             hard_margin: 0.0                           # [m]
             hard_margin_for_parked_vehicle: 0.0        # [m]
         unknown:
-          th_moving_speed: 0.28                        # 1.0km/h
-          th_moving_time: 1.0
+          th_moving_speed: 0.10                        # 1.0km/h
+          th_moving_time: 2.0
           max_expand_ratio: 0.0
-          envelope_buffer_margin: 0.3
+          envelope_buffer_margin: 0.8
           lateral_margin:
-            soft_margin: 0.0                           # [m]
-            hard_margin: 0.0                           # [m]
-            hard_margin_for_parked_vehicle: 0.0        # [m]
+            soft_margin: 1.5                           # [m]
+            hard_margin: 1.0                           # [m]
+            hard_margin_for_parked_vehicle: 1.0        # [m]
         bicycle:
           th_moving_speed: 0.28                        # 1.0km/h
           th_moving_time: 1.0
@@ -85,10 +85,10 @@
       target_filtering:
         # avoidance target type
         target_type:
-          car: true                                    # [-]
-          truck: true                                  # [-]
-          bus: true                                    # [-]
-          trailer: true                                # [-]
+          car: false                                   # [-]
+          truck: false                                 # [-]
+          bus: false                                   # [-]
+          trailer: false                               # [-]
           unknown: true                                # [-]
           bicycle: false                               # [-]
           motorcycle: false                            # [-]

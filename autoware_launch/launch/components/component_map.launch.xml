@@ -14,7 +14,7 @@
   <let name="map_projector_info_path" value="$(var map_path)/map_projector_info.yaml"/>
 
   <!-- Unit junctions: a system-designer-fixed system pins the executing nodes here -->
-  <arg name="use_pointcloud_map" default="true" description="load the pointcloud map"/>
+  <arg name="use_pointcloud_map" default="false" description="load the pointcloud map"/>
   <arg name="use_lanelet2_map" default="true" description="load the lanelet2 map and its marker visualization"/>
   <arg name="use_map_projection" default="true" description="publish the map projector info"/>
   <arg name="use_map_tf_generator" default="true" description="broadcast the map -&gt; viewer transform"/>

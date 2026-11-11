@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
   <!-- Essential parameters -->
-  <arg name="map_path" description="point cloud and lanelet2 map directory path"/>
+  <arg name="map_path" default="$(env HOME)/autoware_data/maps/sample-map-planning" description="point cloud and lanelet2 map directory path"/>
   <arg name="vehicle_model" default="sample_vehicle" description="vehicle model name"/>
   <arg name="sensor_model" default="sample_sensor_kit" description="sensor model name"/>
   <arg name="data_path" default="$(env HOME)/autoware_data/ml_models" description="packages data and artifacts directory path"/>
@@ -75,7 +75,7 @@
       <!-- Vehicle -->
       <arg name="launch_vehicle_interface" value="$(var launch_vehicle_interface)"/>
       <!-- System -->
-      <arg name="system_run_mode" value="planning_simulation"/>
+      <arg name="system_run_mode" value="xxlun_test"/>
       <arg name="launch_system_monitor" value="$(var launch_system_monitor)"/>
       <arg name="launch_dummy_diag_publisher" value="$(var launch_dummy_diag_publisher)"/>
       <arg name="diagnostic_graph_aggregator_graph_path" value="$(find-pkg-share autoware_launch)/config/system/diagnostics/autoware-main.yaml"/>

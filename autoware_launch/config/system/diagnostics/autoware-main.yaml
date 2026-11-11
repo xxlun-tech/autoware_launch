@@ -2,7 +2,7 @@ files:
   - { path: $(dirname)/control.yaml }
   - { path: $(dirname)/localization.yaml }
   - { path: $(dirname)/map.yaml }
-  - { path: $(dirname)/perception.yaml }
+  #- { path: $(dirname)/perception.yaml } TODO
   - { path: $(dirname)/planning.yaml }
   - { path: $(dirname)/system.yaml }
   - { path: $(dirname)/vehicle.yaml }
@@ -35,7 +35,7 @@ units:
       - { type: link, link: /autoware/map }
       - { type: link, link: /autoware/localization }
       - { type: link, link: /autoware/planning }
-      - { type: link, link: /autoware/perception }
+      #- { type: link, link: /autoware/perception }
       - { type: link, link: /autoware/control }
       - { type: link, link: /autoware/vehicle }
       - { type: link, link: /autoware/system }
@@ -53,7 +53,7 @@ units:
       - { type: link, link: /autoware/map }
       - { type: link, link: /autoware/localization }
       - { type: link, link: /autoware/planning }
-      - { type: link, link: /autoware/perception }
+      #- { type: link, link: /autoware/perception }
       - { type: link, link: /autoware/control }
       - { type: link, link: /autoware/vehicle }
       - { type: link, link: /autoware/system }
@@ -64,7 +64,7 @@ units:
       - { type: link, link: /autoware/map }
       - { type: link, link: /autoware/localization }
       - { type: link, link: /autoware/planning }
-      - { type: link, link: /autoware/perception }
+      #- { type: link, link: /autoware/perception }
       - { type: link, link: /autoware/control }
       - { type: link, link: /autoware/vehicle }
       - { type: link, link: /autoware/system }
